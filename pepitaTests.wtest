@@ -23,4 +23,31 @@ describe "Pepita, Pepon y Roque" {
     assert.throwsException({ pepita.volar(100) })
     assert.throwsException({ pepon.volar(100) })
   }
+
+  test "Pepón no puede comer alpiste dos veces seguidas" {
+    assert.throwsException({
+        pepon.comer(alpiste)
+        pepon.comer(alpiste)
+    })
+  }
+
+  test "Pepón no puede comer mazanas dos veces seguidas. (Se sabe que la última vez comió una manzana)" {
+    assert.throwsException({ pepon.comer(manzana) })
+  }
+
+  test "Pepón puede comer alpiste, luego una manzana y luego no puede comer manzana" {
+    assert.throwsException({
+        pepon.comer(alpiste)
+        pepon.comer(manzana)
+        pepon.comer(manzana)
+    })
+  }
+  
+  test "Pepón puede comer alpiste, luego una manzana y luego puede comer alpiste" {
+    assert.doesNotThrowException({
+        pepon.comer(alpiste)
+        pepon.comer(manzana)
+        pepon.comer(alpiste)
+    })
+  }
 }
