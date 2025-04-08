@@ -1,27 +1,26 @@
 import pepita.*
 
-describe "Pepita, Pepon y Roque"{
-
-    test "La energia inicial de Pepon es 30"{
-        assert.equals(30, pepon.energia())
-    }
-
-    test "Pepon al comer alpiste queda con energia en 40"{
-        pepon.comer(alpiste)
-        assert.equals(40, pepon.energia())
-    }
-
-    test "Tanto Pepita como Pepón pueden volar 4 kms" {
-        assert.doesNotThrowException(({ pepita.volar(4) }))
-        assert.doesNotThrowException(({ pepon.volar(4) }))
-    }
-
-    test "Pepón no puede volar 6 kms" {
-        assert.throwsException({ pepon.volar(6) })
-    }
-
-    test "Ni Pepita, ni Pepón pueden volar 100 kms" {
-        assert.throwsException({ pepita.volar(100) })
-        assert.throwsException({ pepon.volar(100) })
-    }
+describe "Pepita, Pepon y Roque" {
+  test "La energia inicial de Pepon es 30" {
+    assert.equals(30, pepon.energia())
+  }
+  
+  test "Pepon al comer alpiste queda con energia en 40" {
+    pepon.comer(alpiste)
+    assert.equals(40, pepon.energia())
+  }
+  
+  test "Tanto Pepita como Pepón pueden volar 4 kms" {
+    assert.doesNotThrowException({ pepita.volar(4) })
+    assert.doesNotThrowException({ pepon.volar(4) })
+  }
+  
+  test "Pepón no puede volar 6 kms" {
+    assert.throwsException({ pepon.volar(6) })
+  }
+  
+  test "Ni Pepita, ni Pepón pueden volar 100 kms" {
+    assert.throwsException({ pepita.volar(100) })
+    assert.throwsException({ pepon.volar(100) })
+  }
 }
