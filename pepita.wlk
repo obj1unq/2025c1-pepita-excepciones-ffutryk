@@ -45,11 +45,15 @@ object manzana {
 
 object pepon {
 	var energia = 30
+	var ultimaComida = manzana
 	
 	method energia() = energia
 	
 	method comer(comida) {
+		self.validarNoRepeticionDeComida(comida)
+		
 		energia += comida.energiaQueAporta() / 2
+		ultimaComida = comida
 	}
 	
 	method volar(distancia) {
@@ -64,6 +68,10 @@ object pepon {
 	
 	method validarVolar(distancia) {
 		if (!self.puedeVolar(distancia)) self.error("Energía para volar insuficiente")
+	}
+	
+	method validarNoRepeticionDeComida(comida) {
+		if (comida == ultimaComida) self.error("Pepón no puede comer la misma comida de forma consecutiva")
 	}
 }
 
