@@ -1,15 +1,91 @@
 import pepita.*
 
-describe "Pepita, Pepon y Roque"{
+describe "Pepita, Pepon y Roque" {
+  test "La energia inicial de Pepon es 30" {
+    assert.equals(30, pepon.energia())
+  }
+  
+  test "Pepon al comer alpiste queda con energia en 40" {
+    pepon.comer(alpiste)
+    assert.equals(40, pepon.energia())
+  }
+  
+  test "Tanto Pepita como Pepón pueden volar 4 kms" {
+    assert.doesNotThrowException({ pepita.volar(4) })
+    assert.doesNotThrowException({ pepon.volar(4) })
+  }
+  
+  test "Pepón no puede volar 6 kms" {
+    assert.throwsException({ pepon.volar(6) })
+  }
+  
+  test "Ni Pepita, ni Pepón pueden volar 100 kms" {
+    assert.throwsException({ pepita.volar(100) })
+    assert.throwsException({ pepon.volar(100) })
+  }
 
-    test "La energia inicial de Pepon es 30"{
+  test "Pepón no puede comer alpiste dos veces seguidas" {
+    assert.throwsException({
+        pepon.comer(alpiste)
+        pepon.comer(alpiste)
+    })
+  }
 
-        assert.fail("IMPLEMENTAR EL TEST!")
-    }
+  test "Pepón no puede comer mazanas dos veces seguidas. (Se sabe que la última vez comió una manzana)" {
+    assert.throwsException({ pepon.comer(manzana) })
+  }
 
-    test "Pepon al comer alpiste queda con energia en 40"{
+  test "Pepón puede comer alpiste, luego una manzana y luego no puede comer manzana" {
+    assert.throwsException({
+        pepon.comer(alpiste)
+        pepon.comer(manzana)
+        pepon.comer(manzana)
+    })
+  }
 
-        assert.fail("IMPLEMENTAR EL TEST!")
-    }
+  test "Pepón puede comer alpiste, luego una manzana y luego puede comer alpiste" {
+    assert.doesNotThrowException({
+        pepon.comer(alpiste)
+        pepon.comer(manzana)
+        pepon.comer(alpiste)
+    })
+  }
+}
 
+describe "Milena" {
+  test "Milena puede entrenar varias aves a la vez" {
+    milena.entrenar(pepita)
+    milena.entrenar(pepon)
+
+    assert.equals([pepita, pepon], milena.aves())
+  }
+
+  test "Milena no puede estar entrenando a la misma ave más de una vez" {
+    assert.throwsException({
+      milena.entrenar(pepita)
+      milena.entrenar(pepita)
+    })
+  }
+
+  test "Milena puede dejar de entrenar a un ave" {
+    milena.entrenar(pepita)
+    milena.entrenar(pepon)
+    milena.dejarDeEntrenar(pepita)
+
+    assert.equals([pepon], milena.aves())
+  }
+
+  test "Milena puede movilizar a Pepita y Pepón durante 4kms" {
+    milena.entrenar(pepita)
+    milena.entrenar(pepon)
+
+    assert.doesNotThrowException({ milena.movilizar(4) })
+  }
+
+  test "Milena no puede movilizar a Pepita y Pepón durante 6kms" {
+    milena.entrenar(pepita)
+    milena.entrenar(pepon)
+
+    assert.throwsException({ milena.movilizar(6) })
+  }
 }
