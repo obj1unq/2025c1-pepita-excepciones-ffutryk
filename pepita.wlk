@@ -89,3 +89,35 @@ object roque {
 		cenas += 1
 	}
 }
+
+// Si bien todavía no vimos colecciones, este punto lo hice leyendo la documentación de wollok
+object milena {
+	const aves = []
+
+	method entrenar(ave) {
+		self.validarEntrenamientoUnico(ave)
+
+		aves.add(ave)
+	}
+
+	method dejarDeEntrenar(ave) {
+		aves.remove(ave)
+	}
+
+	// Getter con propósito de poder testear los metodos 'entrenar' y 'dejarDeEntrenar'
+	method aves() = aves
+
+	method movilizar(distancia) {
+		self.validarQueTodosPuedanVolar(distancia)
+
+		aves.forEach({ ave => ave.volar(distancia) })
+	}
+
+	method validarQueTodosPuedanVolar(distancia) {
+		if(aves.any({ ave => !ave.puedeVolar(distancia)})) self.error("No puede movilizar a las aves ya que hay una que no tiene la energía necesaria")
+	}
+
+	method validarEntrenamientoUnico(ave) {
+		if(aves.contains(ave)) self.error("No puede entrenar al mismo ave muchas veces")
+	}
+}
